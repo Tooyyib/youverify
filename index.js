@@ -57,39 +57,40 @@ app.listen(PORT, () => {
 
 
 app.get('/adebisi', (req,res) => {
-res.send("welcome to adebisi")
-})
+    res.send("welcome to adebisi")
+    })
 
 app.post('/customer',(req,res) => {
     const fname = req.body.firstname
     const oname = req.body.othername
     const lname = req.body.lastname
     const age = req.body.age
+
     if(!fname || !oname || !lname || !age){
         res.status(400).send({
             message: 'all fields are required'
-        }
-        )
+        })
     }else if(age < 18){
         res.status(400).send({
             message: 'try againg next time. you cant register if you are not 18 and above'
+        })
+    }else {
+        const newUser = {
+            id: users.length + 1,
+            firstname: fname,
+            othername: oname,
+            age: age   
         }
-        )
-    }else 
-    // going to create a new user
-    const newUser = {
-        id: users.length + 1,
-        firstname: fname,
-        othername: oname,
-        age: age   
-    }
-    users.push(newUser)
-        res.status(201).send({
-            message: 'succesfully created',
-            data: newUser
+        users.push(newUser)
+            res.status(201).send({
+                message: 'succesfully created',
+                data: newUser
+            })
         }
-    )
+})
+        // going to create a new user
     
+
 
 
 // app.post(`/adebisi`,(req,res) => {
@@ -105,5 +106,4 @@ app.post('/customer',(req,res) => {
 //             message:"user successfully created",
 //         })
 //     }
-// }
-// ) 
+// })
